@@ -10,7 +10,7 @@
   <body>
 
     <h1 class="top">HTML5 APIs: Canvas Graphics</h1>
-    
+
     <div class="accordion h1">
       <h1>What is Canvas?</h1>
       <div>
@@ -112,7 +112,7 @@ $(canvas).appendTo( boardDiv );
           Most of the useful properties and methods we need are provided, not by the <code>canvas</code> object, but by a <em>CanvasRenderingContext2D</em> object, which is usually abbreviated to &quot;context&quot;, &quot;ctx&quot;, or &quot;CRC&quot;. <br />
           We get this object for a given <code>canvas</code> simply by calling <br />
           <pre>
-var ctx = canvas.getContext( '2d' );      
+var ctx = canvas.getContext( '2d' );
           </pre>
           (Again, we will not be covering 3D graphics, but for a 3D context one would call <code>getContext( 'webgl' );</code>.)
         </div>
@@ -128,7 +128,7 @@ var ctx = canvas.getContext( '2d' );
             <li>The Y-axis has 0 at the top and increases downward. This is the standard convention in 2D graphics, though it is opposite to the coordinate system used in most other contexts, including math texts and graphs in newspapers.</li>
           </ul>
         </div>
-        
+
         <h2>Rectangles</h2>
         <div class="accordion h3">
           <h3>Drawing an outlined (stroked) rectangle</h3>
@@ -141,7 +141,7 @@ ctx.strokeRect( 30, 20, 100, 50 );
             <button type="button" class="runCanvasCode">Run</button>
             <button type="button" class="clearCanvas">Clear</button>
           </div>
-          
+
           <h3>Drawing a filled rectangle</h3>
           <div class="canvasDemo">
             <canvas class="demo"></canvas>
@@ -152,7 +152,7 @@ ctx.fillRect( 30, 20, 100, 50 );
             <button type="button" class="runCanvasCode">Run</button>
             <button type="button" class="clearCanvas">Clear</button>
           </div>
-          
+
           <h3>Filling the canvas</h3>
           <div class="canvasDemo">
             <canvas class="demo"></canvas>
@@ -163,7 +163,7 @@ ctx.fillRect( 0, 0, canvas.width, canvas.height );
             <button type="button" class="runCanvasCode">Run</button>
             <button type="button" class="clearCanvas">Clear</button>
           </div>
-          
+
           <h3>Clearing a rectangle</h3>
           <div class="canvasDemo">
             <canvas class="demo"></canvas>
@@ -183,7 +183,7 @@ ctx.fillRect( 0, 0, canvas.width, canvas.height );
           <div>
             Shapes other than rectangles are drawn by creating paths. Paths are made out of line segments, arcs, and other curves.
           </div>
-          
+
           <h3>Creating a simple path</h3>
           <div class="canvasDemo">
             <canvas class="demo"></canvas>
@@ -197,7 +197,7 @@ ctx.lineTo( 180, 80 );
             <button type="button" class="runCanvasCode">Run</button>
             <button type="button" class="clearCanvas">Clear</button>
           </div>
-          
+
           <h3>Drawing a path</h3>
           <div class="canvasDemo">
             <canvas class="demo"></canvas>
@@ -212,7 +212,7 @@ ctx.lineTo( 180, 80 );
             <button type="button" class="runCanvasCode">Run</button>
             <button type="button" class="clearCanvas">Clear</button>
           </div>
-          
+
           <h3>Filling a path</h3>
           <div class="canvasDemo">
             <canvas class="demo"></canvas>
@@ -227,7 +227,7 @@ ctx.lineTo( 180, 80 );
             <button type="button" class="runCanvasCode">Run</button>
             <button type="button" class="clearCanvas">Clear</button>
           </div>
-          
+
           <h3>Closing a path</h3>
           <div>
             Notice that <code>fill()</code> worked as if we had closed the path by drawing a line back to the starting point.
@@ -260,7 +260,7 @@ ctx.stroke( );
               <button type="button" class="clearCanvas">Clear</button>
             </div>
           </div>
-          
+
           <h3>Setting color</h3>
           <div class="canvasDemo">
             <canvas class="demo"></canvas>
@@ -279,7 +279,7 @@ ctx.stroke( );
             <button type="button" class="runCanvasCode">Run</button>
             <button type="button" class="clearCanvas">Clear</button>
           </div>
-          
+
           <h3>Line width</h3>
           <div class="canvasDemo">
             <canvas class="demo"></canvas>
@@ -298,7 +298,7 @@ ctx.stroke( );
             <button type="button" class="runCanvasCode">Run</button>
             <button type="button" class="clearCanvas">Clear</button>
           </div>
-          
+
           <h3>Line caps and joins</h3>
           <div class="canvasDemo">
             <canvas class="demo"></canvas>
@@ -357,7 +357,7 @@ ctx.stroke( );
             <button type="button" class="runCanvasCode">Run</button>
             <button type="button" class="clearCanvas">Clear</button>
           </div>
-          
+
           <h3>Alpha</h3>
           <div class="canvasDemo">
             <canvas class="demo"></canvas>
@@ -379,7 +379,7 @@ ctx.stroke( );
             <button type="button" class="runCanvasCode">Run</button>
             <button type="button" class="clearCanvas">Clear</button>
           </div>
-          
+
           <h3>Arcs</h3>
           <div class="canvasDemo">
             <canvas class="demo"></canvas>
@@ -398,7 +398,7 @@ ctx.stroke( );
             <button type="button" class="runCanvasCode">Run</button>
             <button type="button" class="clearCanvas">Clear</button>
           </div>
-          
+
           <h3>Arc direction</h3>
           <div class="canvasDemo">
             <canvas class="demo"></canvas>
@@ -416,7 +416,7 @@ ctx.stroke( );
             <button type="button" class="runCanvasCode">Run</button>
             <button type="button" class="clearCanvas">Clear</button>
           </div>
-          
+
           <h3>Connecting arcs</h3>
           <div class="canvasDemo">
             <canvas class="demo"></canvas>
@@ -435,18 +435,18 @@ ctx.stroke( );
             <button type="button" class="runCanvasCode">Run</button>
             <button type="button" class="clearCanvas">Clear</button>
           </div>
-          
+
           <h3>Other path elements</h3>
           <div>
             In addition to line segments and arcs, the Canvas API offers quadratic and cubic <em>Bezier curves</em>. The math behind these is more complicated, but they offer the ability to draw a variety of nice shapes. You can read about them in Geary books.
           </div>
-          
+
         </div>
 
         <h2>Gradients and patterns</h2>
         <div class="accordion h3">
           Fill and stroke styles do not need to be solid colors.
-          
+
           <h3>Linear gradients</h3>
           <div class="canvasDemo">
             <canvas class="demo"></canvas>
@@ -462,7 +462,7 @@ ctx.fillRect( 10, 10, 130, 130 );
             <button type="button" class="runCanvasCode">Run</button>
             <button type="button" class="clearCanvas">Clear</button>
           </div>
-          
+
           <h3>Radial gradients</h3>
           <div class="canvasDemo">
             <canvas class="demo"></canvas>
@@ -478,7 +478,7 @@ ctx.fillRect( 10, 10, 130, 130 );
             <button type="button" class="runCanvasCode">Run</button>
             <button type="button" class="clearCanvas">Clear</button>
           </div>
-          
+
           <h3>Gradients for lighting effect</h3>
           <div class="canvasDemo">
             <canvas class="demo"></canvas>
@@ -499,7 +499,7 @@ ctx.fillRect( 160, 10, 130, 130 );
             <button type="button" class="runCanvasCode">Run</button>
             <button type="button" class="clearCanvas">Clear</button>
           </div>
-          
+
           <h3>Patterns</h3>
           <div class="canvasDemo">
             <canvas class="demo"></canvas>
@@ -514,9 +514,9 @@ ctx.fillRect( 10, 10, 280, 130 );
             <button type="button" class="runCanvasCode">Run</button>
             <button type="button" class="clearCanvas">Clear</button>
           </div>
-          
+
         </div>
-        
+
       </div>
 
       <h1>Clipping</h1>
@@ -546,7 +546,7 @@ ctx.stroke( );
         <button type="button" class="runCanvasCode">Run</button>
         <button type="button" class="clearCanvas">Clear</button>
       </div>
-      
+
       <h1>Saving and restoring state</h1>
       <div class="accordion h2">
         <h2>The context state</h2>
@@ -570,7 +570,7 @@ ctx.stroke( );
         <div class="canvasDemo">
           <canvas class="demo"></canvas>
           <pre>
-ctx.lineWidth = 6.0;      
+ctx.lineWidth = 6.0;
 ctx.fillStyle = "rgb( 255, 255, 0 )";
 ctx.strokeStyle = "rgb( 255, 0, 255 )";
 <b>ctx.save( );</b>
@@ -610,7 +610,7 @@ ctx.strokeText( "Merhaba!", 20, 100 );
           <button type="button" class="runCanvasCode">Run</button>
           <button type="button" class="clearCanvas">Clear</button>
         </div>
-        
+
         <h2>Placement</h2>
         <div class="canvasDemo">
           <canvas class="demo"></canvas>
@@ -644,7 +644,7 @@ ctx.strokeText( "right top", 150, 120 );
           <button type="button" class="runCanvasCode">Run</button>
           <button type="button" class="clearCanvas">Clear</button>
         </div>
-        
+
       </div>
 
       <h1>Shadows</h1>
@@ -677,7 +677,7 @@ ctx.fillRect( 180, 20, 100, 100 );
             <li>You will generally apply transformations within a <code>save/restore</code> block.</li>
           </ul>
         </div>
-        
+
         <h2>Translation</h2>
         <div class="canvasDemo">
           <canvas class="demo"></canvas>
@@ -692,7 +692,7 @@ ctx.strokeRect( 110, 55, 80, 40 );
           <button type="button" class="runCanvasCode">Run</button>
           <button type="button" class="clearCanvas">Clear</button>
         </div>
-        
+
         <h2>Scaling</h2>
         <div class="canvasDemo">
           <canvas class="demo"></canvas>
@@ -708,7 +708,7 @@ ctx.strokeRect( 110, 55, 80, 40 );
           <button type="button" class="runCanvasCode">Run</button>
           <button type="button" class="clearCanvas">Clear</button>
         </div>
-        
+
         <h2>Scaling about a point</h2>
         <div class="canvasDemo">
           <canvas class="demo"></canvas>
@@ -726,7 +726,7 @@ ctx.strokeRect( 110, 55, 80, 40 );
           <button type="button" class="runCanvasCode">Run</button>
           <button type="button" class="clearCanvas">Clear</button>
         </div>
-        
+
         <h2>Rotation</h2>
         <div class="canvasDemo">
           <canvas class="demo"></canvas>
@@ -742,7 +742,7 @@ ctx.strokeRect( 110, 55, 80, 40 );
           <button type="button" class="runCanvasCode">Run</button>
           <button type="button" class="clearCanvas">Clear</button>
         </div>
-        
+
         <h2>Rotation about a point</h2>
         <div class="canvasDemo">
           <canvas class="demo"></canvas>
@@ -784,7 +784,7 @@ b d f
             <li>Setting the transformation matrix does allow for some special transformations, such as shearing, which are used occasionally. <code>translate</code>, <code>scale</code>, and <code>rotate</code> will generally be plenty.</li>
           </ul>
         </div>
-        
+
       </div>
 
       <h1>Images</h1>
@@ -796,12 +796,12 @@ b d f
           The simplest form of <code>drawImage</code> takes three parameters. The first specifies the image, which can be an HTML <code>img</code> element, or a <code>canvas</code> element (or the current frame from a video). The next parameters, <em>x</em> and <em>y</em>, specify the location of the top-left corner on the canvas. The whole image is rendered.
           <pre>
 var img = $("#Tux")[0];
-ctx.drawImage( img, 25, 10 );  
+ctx.drawImage( img, 25, 10 );
           </pre>
           <button type="button" class="runCanvasCode">Run</button>
           <button type="button" class="clearCanvas">Clear</button>
         </div>
-        
+
         <h2>Scaling an image</h2>
         <div class="canvasDemo">
           <canvas class="demo"></canvas>
@@ -814,7 +814,7 @@ ctx.drawImage( img, 25, 10, 200, 100 );
           <button type="button" class="runCanvasCode">Run</button>
           <button type="button" class="clearCanvas">Clear</button>
         </div>
-        
+
         <h2>Drawing part of an image</h2>
         <div class="canvasDemo">
           <canvas class="demo"></canvas>
@@ -827,7 +827,7 @@ ctx.drawImage( img, 40, 0, 64, 60,  125, 10, 128, 120 );
           <button type="button" class="runCanvasCode">Run</button>
           <button type="button" class="clearCanvas">Clear</button>
         </div>
-        
+
       </div>
 
       <h1>Accessing pixel data</h1>
@@ -910,7 +910,7 @@ ctx.putImageData( destImgData, 0, 0 );
           <button type="button" class="clearCanvas">Clear</button>
         </div>
       </div>
-        
+
       <h1>Exercises</h1>
       <div class="accordion h2">
         <h2>Circle</h2>
@@ -1010,10 +1010,9 @@ fillRoundedRect( 180, 20, 100, 100, 20 );
 
     <button type="button" id="accordionToggle"></button>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script src="Lectures.js"></script>
     <script src="CanvasLecture.js"></script>
   </body>
 </html>
-  
