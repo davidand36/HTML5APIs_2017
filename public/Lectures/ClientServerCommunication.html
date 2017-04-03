@@ -41,8 +41,8 @@
           </p>
           <p>
             The <em>URL</em> determines where the request is sent, but may also indicate the nature of the request to the server. For example, the URL <br />
-            <code>https://shielded-sea-3725.herokuapp.com/data-api/danderson?skip=1&amp;limit=2</code> <br />
-            is sent to the server at <code>https://shielded-sea-3725.herokuapp.com</code>, which then, processes the request a bit and passes it to a <code>DataApi</code> module, which in turn calls a function that returns data for a collection called "danderson". The portion of the URL after the question mark (<code>?</code>) is called a <em>query string</em> and will be discussed below.
+            <code>https://pacific-meadow-64112.herokuapp.com/data-api/danderson?skip=1&amp;limit=2</code> <br />
+            is sent to the server at <code>https://pacific-meadow-64112.herokuapp.com</code>, which then, processes the request a bit and passes it to a <code>DataApi</code> module, which in turn calls a function that returns data for a collection called "danderson". The portion of the URL after the question mark (<code>?</code>) is called a <em>query string</em> and will be discussed below.
           </p>
           <p>
             In general, a URL specifies the "location" of a "resource", which can be a page of HTML, an image, a record from a database, etc.
@@ -129,7 +129,7 @@
             <p>
               Example:
               <pre>
-$.ajax( 'https://shielded-sea-3725.herokuapp.com/data-api/danderson',
+$.ajax( 'https://pacific-meadow-64112.herokuapp.com/data-api/danderson',
     {
         method: 'GET',
         data: {
@@ -247,7 +247,7 @@ function logAjaxError( jqXHR, textStatus, errorThrown ) {
             <pre>
 $('#create-submit').off( );
 $('#create-submit').on( 'click', function( evt ) {
-    var baseUrl = 'https://shielded-sea-3725.herokuapp.com/data-api/';
+    var baseUrl = 'https://pacific-meadow-64112.herokuapp.com/data-api/';
     var collection = 'danderson'; //Use your own!
     var name = $('#create-name').val();
     var age = $('#create-age').val();
@@ -288,7 +288,7 @@ function logAjaxError( jqXHR, textStatus, errorThrown ) {
               <p>
                 For a list, we use the collection URI:
                 <pre>
-var baseUrl = 'https://shielded-sea-3725.herokuapp.com/data-api/';
+var baseUrl = 'https://pacific-meadow-64112.herokuapp.com/data-api/';
 var collection = 'danderson'; //Use your own!
 
 $.ajax( baseUrl + collection,
@@ -325,7 +325,7 @@ function logAjaxError( jqXHR, textStatus, errorThrown ) {
               <pre>
 $('#read-submit').off( );
 $('#read-submit').on( 'click', function( evt ) {
-    var baseUrl = 'https://shielded-sea-3725.herokuapp.com/data-api/';
+    var baseUrl = 'https://pacific-meadow-64112.herokuapp.com/data-api/';
     var collection = 'danderson'; //Use your own!
     var id = $('#read-id').val();
 
@@ -373,7 +373,7 @@ function logAjaxError( jqXHR, textStatus, errorThrown ) {
             <pre>
 $('#update-submit').off( );
 $('#update-submit').on( 'click', function( evt ) {
-    var baseUrl = 'https://shielded-sea-3725.herokuapp.com/data-api/';
+    var baseUrl = 'https://pacific-meadow-64112.herokuapp.com/data-api/';
     var collection = 'danderson'; //Use your own!
     var id = $('#update-id').val();
     var name = $('#update-name').val();
@@ -420,7 +420,7 @@ function logAjaxError( jqXHR, textStatus, errorThrown ) {
             <pre>
 $('#delete-submit').off( );
 $('#delete-submit').on( 'click', function( evt ) {
-    var baseUrl = 'https://shielded-sea-3725.herokuapp.com/data-api/';
+    var baseUrl = 'https://pacific-meadow-64112.herokuapp.com/data-api/';
     var collection = 'danderson'; //Use your own!
     var id = $('#delete-id').val();
 
