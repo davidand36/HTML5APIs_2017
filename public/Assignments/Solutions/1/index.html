@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>HTML5 APIs: Assignment 1 Solution</title>
+    <link rel="stylesheet" href="NumberForm.css" />
+  </head>
+  <body>
+    <h1>Number Form</h1>
+    <form>
+      <label for="the-number">Enter numbers here:</label>
+      <input type="number" id="the-number" step="any" />
+      <button type="submit" id="submit">Submit</button>
+      <button type="button" id="reset">Reset</button>
+    </form>
+
+    <table>
+      <tr>
+        <td class="label">Count:</td>
+        <td id="count"></td>
+      </tr>
+      <tr>
+        <td class="label">Sum:</td>
+        <td id="sum"></td>
+      </tr>
+      <tr>
+        <td class="label">Average:</td>
+        <td id="average"></td>
+      </tr>
+    </table>
+
+    <script src="../../../lib/jquery-2.js"></script>
+    <script src="NumberFormNoJQuery.js"></script>
+  </body>
+</html>
