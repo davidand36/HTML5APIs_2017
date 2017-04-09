@@ -12,6 +12,7 @@
 var count = 0;
 var sum = 0;
 var average;
+var stringCount = 0;
 var concatenatedString = '';
 var wordCounts = {};
 
@@ -37,7 +38,7 @@ function processForm( evt ) {
 //=============================================================================
 
 function processString( string ) {
-    concatenatedString += string;
+    concatenatedString += string + ' ';
     updateWordCounts( string );
     DisplayResults( );
 }
@@ -48,7 +49,8 @@ function updateWordCounts( string ) {
     var words = string.split( /\s/ ); //split on whitespace (Could use ' ')
     words.forEach( function( word ) {
         word = word.toLowerCase();
-        word = word.replace( /\W/, '' ); //remove non-word characters
+        //Remove non-word characters at start or end of word:
+        word = word.replace(/^\W*/, '').replace( /\W*$/, '' );
         if ( word.length === 0 ) {
             return;
         }
@@ -79,6 +81,7 @@ function DisplayResults( ) {
     displayValue( '#count', count );
     displayValue( '#sum', sum );
     displayValue( '#average', average );
+    displayValue( '#string-count', stringCount );
     displayValue( '#concatenation', concatenatedString );
     displayWordCounts( );
 
@@ -126,6 +129,7 @@ function reset( ) {
     count = 0;
     sum = 0;
     average = undefined;
+    stringCont = 0;
     concatenatedString = '';
     wordCounts = {};
     DisplayResults( );
