@@ -31,7 +31,7 @@
             There are two special numeric values. <code>Infinity</code> represents any value greater than about 1.8×10<sup>308</sup>. (<code>-Infinity</code> naturally represents anything less than about -1.8×10<sup>308</sup>.)
           </p>
           <p>
-            <code>NaN</code> (Not a Number) represents the result of an operation that cannot produce a normal number. It has the unique property that if <code>x</code> has the value <code>NaN</code>, then <code>x === x</code> is <em>false</em>.
+            <code>NaN</code> (Not a Number) represents the result of an operation that cannot produce a normal number. It has the unique property that if <code>x</code> has the value <code>NaN</code>, then <code>x === x</code> is <em>false</em>. You can use the global function <code>isNaN()</code> to test whether you have a legitimate number.
           </p>
           <p>
             JavaScript has a built-in library, <code>Math</code>, which provides a lot of useful functions, including
@@ -66,6 +66,7 @@
               <li><code>string.substr()</code></li>
               <li><code>string.toLowerCase()</code> and <code>string.toUpperCase()</code></li>
               <li><code>string.trim()</code></li>
+              <li><code>string.replace()</code></li>
             </ul>
           </p>
         </div>
@@ -78,7 +79,7 @@
               JavaScript objects are collections of named properties. The names (a.k.a. <em>keys</em>) are strings, and the values can be of any type, including numbers, <code>null</code>, functions, and other objects.
             </p>
             <p>
-              Object literals are enclosed in braces (curly brackets), with properties separated by commas, and the key and value of each property separated by a olon. E.g.:
+              Object literals are enclosed in braces (curly brackets), with properties separated by commas, and the key and value of each property separated by a colon. E.g.:
               <pre>
 var dave = <b>{</b>
     "full-name": "David M. Anderson"<b>,</b>
@@ -155,7 +156,7 @@ counter.addAndLog( -12 );
             <p>
               In <em>JavaScript: The Good Parts</em>, Douglas Crockford writes
               <blockquote>
-                An <em>array</em> is a linear allocation of memory in which elements are accessed by integers that are used to compute offsets. arrays can be very fast data structures. Unfortunately, JavaScript does not have anything like this kind of array.
+                An <em>array</em> is a linear allocation of memory in which elements are accessed by integers that are used to compute offsets. Arrays can be very fast data structures. Unfortunately, JavaScript does not have anything like this kind of array.
               </blockquote>
               With modern JavaScript compilers, this is only partly true.
             </p>
@@ -195,7 +196,7 @@ console.log( arr[ 4 ] );
               <ul>
                 <li><code>array.push()</code> and <code>array.pop()</code></li>
                 <li><code>array.unshift()</code> and <code>array.shift()</code></li>
-                <li><code>array.indexOf()</code> and array.lastIndexOf()</li>
+                <li><code>array.indexOf()</code> and <code>array.lastIndexOf()</code></li>
                 <li><code>array.concat()</code></li>
                 <li><code>array.slice()</code></li>
                 <li><code>array.splice()</code></li>
