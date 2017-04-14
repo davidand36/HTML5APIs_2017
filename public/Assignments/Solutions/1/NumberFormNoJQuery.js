@@ -1,5 +1,5 @@
 /*
-  StatsNoJQuery.js
+  NumberFormNoJQuery.js
 
   Computes and displays statistics about numbers entered into form.
   Uses built-in DOM methods.
@@ -42,7 +42,6 @@ function processNumber( number ) {
 //=============================================================================
 
 function ComputeStats( ) {
-    var variance;
     if ( count > 0 ) {
         average = sum / count;
     } else {
@@ -72,7 +71,6 @@ function DisplayStats( ) {
 function reset( ) {
     count = 0;
     sum = 0;
-    sumSqr = 0;
     ComputeStats( );
     DisplayStats( );
 }
