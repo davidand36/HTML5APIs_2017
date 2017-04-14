@@ -1,0 +1,713 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>HTML5 APIs: jQuery</title>
+    <link rel="stylesheet" href="Lecture.css" />
+  </head>
+  <body>
+
+    <h1 class="top">HTML5 APIs: jQuery</h1>
+
+    <div class="accordion h1">
+      <h1>Introduction</h1>
+      <div class="accordion h2">
+        <h2>What is jQuery?</h2>
+        <div>
+          <p>
+            <a href="https://jquery.com/" target="_blank"><em>jQuery</em></a> is a free, open-source JavaScript library used in the majority of interactive Web sites. It simplifies selecting and manipulating DOM elements and provides other frequently needed functionality, such as AJAX and Promises.
+          </p>
+          <p>
+            In addition to simplification, jQuery eliminates many cross-browser incompatibilities. This was particularly urgent with earlier versions of Internet Explorer. Current (3.x) versions of jQuery support IE 9 and later, as well as recent versions of all modern browsers.
+          </p>
+        </div>
+        <h2>Including jQuery in your application</h2>
+        <div>
+          <p>
+            You can download a copy of the jQuery file from their <a href="http://jquery.com/download/" target="_blank">download</a> page. Then you can include it in your app by adding a line like this in your HTML:
+            <pre>
+    &lt;script src="lib/jquery-3.2.1-min.js"&gt;&lt;/script&gt;
+            </pre>
+            You should include this script before your own JavaScript files. (The best place for all <code>&lt;script&gt;</code> elements is at the bottom of your <code>&lt;body&gt;</code>. That way the browser has prepared the DOM before your scripts run.)
+          </p>
+          <p>
+            Generally, a better idea is to use a <a href="https://en.wikipedia.org/wiki/Content_delivery_network" target="_blank">Content Delivery Network (CDN)</a> serve your libraries. Instead of downloading the script and putting it on your Web site, you link to the script at the CDN like this:
+            <pre>
+  &lt;script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"&gt;&lt;/script&gt;
+            </pre>
+          </p>
+        </div>
+        <h2>Documentation</h2>
+        <div>
+          The official documentation at <a href="http://api.jquery.com/" target="_blank">http://api.jquery.com/</a> has lots of details and examples. (The Search feature at the top right comes in handy.)
+        </div>
+        <h2>The <code>$()</code> function</h2>
+        <div>
+          <p>
+            jQuery introduces a single global variable, named simply <code>$</code>. It's primary use is as a function, but it is also an object with methods of its own.
+          </p>
+          <p>
+            So code that uses jQuery often looks like this:
+            <pre>
+  <b>$</b>('#message').addClass( 'warning' ).html( 'This offer expires soon!' );
+            </pre>
+          </p>
+        </div>
+      </div>
+
+      <h1>Selecting elements</h1>
+      <div class="accordion h2">
+        <h2>jQuery uses CSS-style selectors</h2>
+        <div>
+          <p>
+            When you pass a string that looks like a CSS selector to the <code>$()</code> function, jQuery will find the element(s) on the page that match.
+          </p>
+          <p>
+            For example,
+            <pre>
+  var msgEl = $('#message');
+            </pre>
+            gets the element whose <code>id</code> attribute is <code>"message"</code>. (This is similar to calling <code>getElementById('message')</code>.)
+          </p>
+          <p>
+            Similarly,
+            <pre>
+  var listItems = $('li');
+            </pre>
+            gets all of the elements with the tag <code>li</code>. (This is similar to <code>getElementsByTagName('li')</code>.)
+          </p>
+          <p>
+            And
+            <pre>
+  var correctAnswers = $('.correct');
+            </pre>
+            gets all of the elements with the class <code>correct</code>. (This is similar to <code>getElementsByClassName('correct')</code>.)
+          </p>
+          <p>
+            More complex selectors also work, of course:
+            <pre>
+  var hotButtons = $('div.hot button, div.hot input[type="button"], div.hot .button');
+            </pre>
+            selects the elements inside of the <code>div</code> with class <code>hot</code> that are buttons, by virtue of their <code>button</code> tag, type attribute, or class. (This is similar to <code>querySelectorAll('div.hot button, div.hot input[type="button"], div.hot .button')</code>.)
+          </p>
+          <p>
+            jQuery provides some selectors that are not in standard CSS, as well. For example,
+            <pre>
+  var inputs = $(':input');
+            </pre>
+            selects all <code>input</code>, <code>textarea</code>, <code>select</code>, and <code>button</code> elements, while
+            <pre>
+  var section4s = $('section:has(h4)');
+            </pre>
+            selects the <code>section</code> elements that contain an <code>h4</code> heading.
+          </p>
+        </div>
+        <h2>jQuery returns a <em>jQuery selection</em></h2>
+        <div>
+          <p>
+            When you pass a selector to jQuery, it returns an object often called a <em>jQuery selection</em>, also sometimes called a <em>jQuery object</em> or <em>matched set</em>. When the context is clear, we'll just call it a <em>selection</em>.
+          </p>
+          <p>
+            A selection works a lot like an array of DOM elements. So if we have a list and provide a corresponding selector:
+            <ol id="selection-list">
+              <li>first</li>
+              <li>second</li>
+              <li>third</li>
+            </ol>
+            <pre>
+  var items = $('#selection-list > li');
+            </pre>
+            then we can find out how many matching items there are with
+            <pre>
+  var numItems = items<b>.length</b>;
+  console.log( numItems );
+            </pre>
+            and access one of the items as with an array
+            <pre>
+  console.log( items<b>[1]</b> );
+            </pre>
+            but a better way to access an item is this:
+            <pre>
+  console.log( items<b>.eq</b>(1) );
+            </pre>
+            <button type="button" class="runCode">Run</button>
+          </p>
+          <p>
+            Here <code>items[1]</code> is a plain old DOM element, while <code>items.eq(1)</code> is a new jQuery selection with just one element.
+          </p>
+          <p>
+            If the argument to <code>$()</code> is a DOM element (or jQuery selection), the result is a jQuery selection. So <code>$( items[1] )</code> is equivalent to <code>items.eq(1)</code>.
+          </p>
+          <p>
+            If no elements match the selector, then the length will be 0. Often we are selecting a particular element, by ID, for instance, and the length should be 1.
+          </p>
+          <p>
+            Although we can access individual elements in the selection as just shown, it is not common; jQuery provides better ways to work with the selection.
+          </p>
+        </div>
+        <h2>Traversing the DOM</h2>
+        <div>
+          <p>
+            When we have a selection (usually when it has exactly one element), we sometimes need to find other elements related to it. jQuery provides several methods to do this.
+          </p>
+          <p>
+            Here we have a <code>section</code>, with a heading, containing a list:
+            <section>
+              <h4>Section Heading</h4>
+              <ul id="traversal-list">
+                <li>Item one</li>
+                <li>Item two</li>
+                <li><a href="index.html" target="_blank">Link to lectures</a></li>
+              </li>
+            </section>
+            If we start by selecting the list, we can get its <em>parent</em> and <em>children</em>:
+            <pre>
+  var list = $('#traversal-list');
+  var parentSection = list<b>.parent()</b>;
+  console.log( parentSection );
+  var childItems = list<b>.children()</b>;
+  console.log( childItems );
+            </pre>
+            We can also provide selectors to search within the list (with <code>find()</code>) or out from the list (with <code>closest()</code>):
+            <pre>
+  var linkInList = list<b>.find</b>( 'a' );
+  console.log( linkInList );
+  var containingDiv = list<b>.closest</b>( 'div' );
+  console.log( containingDiv );
+            </pre>
+            <button type="button" class="runCode">Run</button>
+          </p>
+          <p>
+            Other methods for traversing the DOM include
+            <ul>
+              <li><code>.siblings()</code></li>
+              <li><code>.next()</code></li>
+              <li><code>.prev()</code></li>
+            </ul>
+          </p>
+        </div>
+      </div>
+
+      <h1>Getting and setting information about selections</h1>
+      <div class="accordion h2">
+        <h2>Attributes, classes, and styles</h2>
+        <div class="accordion h3">
+          <h3>Getters</h3>
+          <div>
+            <p>
+              jQuery makes it easy to get the attributes of a selected element. Suppose we have an element with this markup:<br/>
+              <div>
+                <code>&lt;span id="get-attrs-span" data-my-info="My app's info" class="important casual" style="color:blue; font-size: 1.4em"&gt;The first span&lt;/span&gt;</code>
+              </div>
+              <span id="get-attrs-span" data-my-info="My app's info" class="important casual" style="color:blue; font-size: 1.4em">The first span</span><br />
+              Then we can get the value of an attribute:
+              <pre>
+  var span = $('#get-attrs-span');
+  var myInfo = span<b>.attr</b>( 'data-my-info' );
+  console.log( myInfo );
+              </pre>
+              We could get the <code>class</code> attribute with:
+              <pre>
+  console.log( span.attr( 'class' ) );
+              </pre>
+              but this is usually more useful, because we can get at individual classes:
+              <pre>
+  var isCasual = span<b>.hasClass</b>( 'casual' );
+  var isFormal = span<b>.hasClass</b>( 'formal' );
+  console.log( isCasual );
+  console.log( isFormal );
+              </pre>
+              Similarly, jQuery has a function specifically for CSS style:
+              <pre>
+  var fontSize = span<b>.css</b>( 'font-size' );
+  var fontFamily = span<b>.css</b>( 'font-family' );
+  console.log( fontSize );
+  console.log( fontFamily );
+              </pre>
+              <button type="button" class="runCode">Run</button>
+            </p>
+            <p>
+              These functions return the value from the first element in the selection, should there be more than one.
+            </p>
+          </div>
+          <h3>Setters</h3>
+          <div>
+            <p>
+              You can also use these functions to set or change attribute values. In this case, they will apply the values to all elements in the selection. We'll start with another list:
+              <ul id="set-attrs-list">
+                <li>First item</li>
+                <li>Second item</li>
+              </ul>
+              When we pass a second argument to <code>attr()</code>, jQuery considers it the value to be set:
+              <pre>
+  var items = $('#set-attrs-list > li');
+  items<b>.attr</b>( 'data-my-info', 'Some info' );
+              </pre>
+              For classes, jQuery provides two useful functions:
+              <pre>
+  items<b>.addClass</b>( 'serious' );
+  items<b>.addClass</b>( 'warm' );
+  items.eq(0)<b>.addClass</b>( 'first' );
+  items.eq(1)<b>.removeClass</b>( 'serious' );
+              </pre>
+              For CSS style, we can set one or more properties:
+              <pre>
+  items<b>.css</b>( 'color', 'green' );
+  items.eq(1)<b>.css</b>( {
+      'font-size': '1.3em',
+      'font-style': 'italic'
+  } );
+              </pre>
+              That second form looks a bit like regular CSS, but be careful: it is a JavaScript object. Note the comma and the need for quotation marks around strings.<br/>
+              The easiest way to see the effects of this code is to inspect the list before and after running it.<br/>
+              <button type="button" class="runCode">Run</button>
+            </p>
+            <p>
+              It is generally better to set and change style using CSS and adding or removing classes than directly with <code>.css()</code>.
+            </p>
+          </div>
+        </div>
+        <h2>Content</h2>
+        <div>
+          <div>
+            <p>
+              We can get the HTML or text contained in an element. Let's start with a paragraph:
+            </p>
+            <p id="get-content-p">
+              This text is <b>inside</b> a <code>&lt;p&gt;</code> element.
+            </p>
+            <p>
+              We can get either the complete HTML content or just the text:
+              <pre>
+  var para = $('#get-content-p');
+  console.log( para<b>.html</b>() );
+  console.log( para<b>.text</b>() );
+              </pre>
+              <button type="button" class="runCode">Run</button>
+            </p>
+            <p>
+              As usual, <code>.html()</code> will only get the content of the first element in a selection. Like it or not, <code>.text()</code> will combine the text of all elements in a selection, and whitespace between texts may or may not be inserted.
+            </p>
+          </div>
+          <div>
+            <p>
+              We can also set the HTML or text content of elements. We'll start with two empty paragraphs:
+            </p>
+            <p id="set-html-p"></p>
+            <p id="set-text-p"></p>
+            <pre>
+  $('#set-html-p').html( 'This text has a &lt;strong&gt;strong&lt;/strong&gt; word.' );
+  $('#set-text-p').text( 'This text has a &lt;strong&gt;strong&lt;/strong&gt; word.' );
+            </pre>
+            <button type="button" class="runCode">Run</button>
+            <p>
+              Notice that <code>.text()</code> <em>escapes</em> the string we provide it, converting &lt; into &amp;lt;, etc. This can be desirable, particularly because it can be dangerous to insert HTML into your page that may have come from untrusted sources, such as your users. But it can also be frustrating when you really want that &gt;strong&lt; tag to have its effect.
+            </p>
+            <p>
+              You should avoid inserting large amounts of HTML into your DOM this way. HTML embedded in JavaScript is quite hard to maintain. Better ways include the <em>DOM manipulation</em> methods we'll discuss shortly and <em>templates</em>, which will be the subject of another lecture.
+            </p>
+          </div>
+        </div>
+        <h2>Form data</h2>
+        <div>
+          <div>
+            <div>
+              <p>
+                We can read the text that a user has entered in an &lt;input&gt; or &lt;textarea&gt; field, or selected from a &lt;select&gt; control with the <code>.val()</code> function:<br/>
+                <input type="text" id="get-val-input" />
+                <pre>
+  console.log( $('#get-val-input')<b>.val</b>() );
+                </pre>
+                <button type="button" class="runCode">Run</button>
+              </p>
+            </div>
+            <div>
+              <p>
+                You can also <em>set</em> the value of an <code>input</code> by supplying an argument to <code>.val()</code>:<br/>
+                <input type="text" id="set-val-input" />
+                <pre>
+  var myText = 'My text';
+  $('#set-val-input')<b>.val( 'My text' )</b>;
+                </pre>
+                <button type="button" class="runCode">Run</button>
+              </p>
+            </div>
+          </div>
+        </div>
+        <h2>Dimensions</h2>
+        <div>
+          <p>
+            jQuery makes it easy to get, and set, the dimensions of an element. Let's start with a <code>div</code> and set its style:
+            <div id="dimensions-div" style="background-color: yellow">
+              This is a <code>div</code> with a yellow background.
+            </div>
+            <pre>
+  var dimDiv = $('#dimensions-div');
+  dimDiv.css( {
+      width: '200px',
+      padding: '10px',
+      border: '4px solid navy',
+      margin: '1px 2px 3px 4px'
+  } );
+            </pre>
+            Then we can get the width of this element, with or without padding, border, and margin:
+            <pre>
+  console.log( dimDiv<b>.width</b>() );             /* C */
+  console.log( dimDiv<b>.innerWidth</b>() );        /* C + P */
+  console.log( dimDiv<b>.outerWidth</b>( ) );       /* C + P + B */
+  console.log( dimDiv<b>.outerWidth( true )</b> );  /* C + P + B + M */
+            </pre>
+            In my comments, C=content, P=padding, B=border, and M=margin.<br/>
+            <button type="button" class="runCode">Run</button>
+          </p>
+          <p>
+            There are corresponding functions for <em>height</em>.
+          </p>
+          <p>
+            You can also use <code>.width()</code> and <code>.height()</code> to set the dimensions. The other functions are just getters.
+          </p>
+        </div>
+        <h2>Chaining</h2>
+        <div>
+          <p>
+            Each of jQuery's setter methods returns the selection it is modifying. This allows you to <em>chain</em> several setter functions together. For instance:
+          </p>
+          <div id="chain-div"></div>
+          <pre>
+  $('#chain-div')
+      .text( 'My text!' )
+      .css( 'color', 'red' )
+      .addClass( 'warning' )
+      .height( '3em' );
+          </pre>
+          <button type="button" class="runCode">Run</button>
+        </div>
+      </div>
+
+      <h1>Manipulating the DOM</h1>
+      <div class="accordion h2">
+        <h2>Creating elements</h2>
+        <div>
+          <p>
+            If you pass the <code>$()</code> function a string that looks like HTML, rather than a CSS-style selector, jQuery will create a new DOM element or elements. (Generally it will begin with '&lt;tag...&gt;') The element(s) will not be inserted into your document; we'll see how to do that soon.
+          </p>
+          <p>
+            Although it is allowed, it is generally best not to supply a long string of HTML in this manner. Instead, the best practice is to pass in just the tag of a single element. Then you can use the various setters we covered earlier to add attributes and text. You can also use functions we will discuss shortly to add child elements.
+          </p>
+          <p>
+            Here's an example:
+            <pre>
+  var newButton = $( '&lt;button&gt;' )
+      .attr( 'type', 'button' )
+      .attr( 'id', 'new-button' )
+      .addClass( 'btn-primary' )
+      .text( 'Do Something' );
+  console.log( newButton );
+            </pre>
+            <button type="button" class="runCode">Run</button>
+          </p>
+        </div>
+        <h2>Inserting elements into the DOM</h2>
+        <div>
+          <p>
+            Once we have created an element we can insert into the document. To do so, we place it relative to an element already in the document. jQuery gives us a few methods depending on how we want to situate the new element relative to the selection in the document.
+            <ul>
+              <li><code>.before()</code>: inserts before the selection</li>
+              <li><code>.after()</code>: inserts after the selection</li>
+              <li><code>.prepend()</code>: inserts inside the selection, at the beginning</li>
+              <li><code>.append()</code>: inserts inside the selection, at the end</li>
+              <li><code>.wrap()</code>: wraps around the selection</li>
+            </ul>
+            Let's start with a list:
+            <ul id="insertion-list">
+              <li>Item already here</li>
+            </ul>
+            <pre>
+  var list = $('#insertion-list');
+  var wrapperDiv = $( '&lt;div&gt;' ).attr( 'id', 'wrapper-to-add' )
+      .css( {
+          border: '2px dashed blue',
+          'padding-left': '1em'
+      } );
+  var paraAbove = $( '&lt;p&gt;' ).text( 'Text above' );
+  var paraBelow = $( '&lt;p&gt;' ).text( 'Text below' );
+  var firstItem = $( '&lt;li&gt;' ).text( 'First item' );
+  var lastItem = $( '&lt;li&gt;' ).text( 'Last item' );
+  list.wrap( wrapperDiv );
+  list.before( paraAbove );
+  list.after( paraBelow );
+  list.prepend( firstItem );
+  list.append( lastItem );
+            </pre>
+            <button type="button" class="runCode">Run</button>
+          </p>
+        </div>
+        <h2>Removing elements</h2>
+        <div>
+          <p>
+            We can also remove elements from the document. Let's start with a list wrapped in a div:
+            <div class="wrapper" style="border:1px solid blue">
+              <ol id="removal-list">
+                <li>First item</li>
+                <li>Second item</li>
+                <li>Third item</li>
+              </ol>
+            </div>
+            <pre>
+  var list = $('#removal-list');
+  list.unwrap( 'div.wrapper' );
+  var secondItem = list.children().eq( 1 );
+  secondItem.remove( );
+            </pre>
+            <button type="button" class="runCode">Run</button>
+          </p>
+        </div>
+        <h2>Example: populating a table</h2>
+        <div>
+          <p>
+            Here's a more complex example where we'll create elements (table rows), add new elements (table cells) into those, and then append those table rows into a table body. Here's the table:
+          </p>
+          <table>
+            <thead>
+              <th>Color</th>
+              <th>Number of regions</th>
+              <th>Relative area</th>
+            </thead>
+            <tbody id="dom-building-tbody">
+            </tbody>
+          </table>
+          <p>
+            We'll use an array of objects as our data source:
+          </p>
+          <pre>
+  var flagColors = [
+        { color: 'red', regions: 7, area: 0.4154 },
+        { color: 'white', regions: 56, area: 0.3973 },
+        { color: 'blue', regions: 1, area: 0.1874 }
+    ];
+          </pre>
+          <p>
+            Here's a function that will create a table row element with cells filled with data from one of those objects:
+          </p>
+          <pre>
+  function makeTableRow( fcData ) {
+      var tr = $('&lt;tr&gt;');
+      var td = $('&lt;td&gt;').text( fcData.color );
+      tr.append( td );
+      td = $('&lt;td&gt;').text( fcData.regions );
+      tr.append( td );
+      td = $('&lt;td&gt;').text( fcData.area );
+      tr.append( td );
+      return tr;
+  }
+          </pre>
+          <p>
+            We now loop through our array, make a table row for each object, and add it to the table body:
+          </p>
+          <pre>
+  var tbody = $('#dom-building-tbody');
+  flagColors.forEach( function( flagColor ) {
+      var tr = makeTableRow( flagColor );
+      tbody.append( tr );
+  } );
+          </pre>
+          <button type="button" class="runCode">Run</button>
+        </div>
+      </div>
+
+      <h1>Events</h1>
+      <div class="accordion h2">
+        <h2>Handling events with <code>.on()</code></h2>
+        <div>
+          <p>
+            Most of the work in JavaScript program is in response to <em>events</em>. We initialize some variables and do some other set-up, and then our code waits for things to happen, mainly for the user to do something with her mouse, keyboard, or fingers.
+          </p>
+          <p>
+            We arrange for this by writing a function to be called when a particular event happens and then setting it as the <em>event handler</em>. Event handlers are tied to specific elements (sometimes the <code>window</code>), so we start with a jQuery selection. Then we use jQuery's <code>.on()</code> method to bind the handler to the event.
+          </p>
+          <p>
+            For example, here are two buttons:
+          </p>
+          <button type="button" id="dog-button">Dog</button>
+          <button type="button" id="cow-button">Cow</button>
+          <p>
+            and a function for each one:
+          </p>
+          <pre>
+  function dogClicked( ) {
+      alert( 'You clicked on Dog.' );
+  }
+
+  function cowClicked( ) {
+      alert( 'You clicked on Cow' );
+  }
+          </pre>
+          <p>
+            We set these as handlers for the <code>click</code> event on each button:
+          </p>
+          <pre>
+  $('#dog-button')<b>.on</b>( 'click', dogClicked );
+  $('#cow-button')<b>.on</b>( 'click', cowClicked );
+          </pre>
+          <button type="button" class="runCode">Run</button>
+          <p>
+            Note that we only pass references to the handler functions here. We write the function name without any parentheses: <code>dogClicked</code>, not <code>dogClicked<b>( )</b></code>. The latter would call the function immediately and provide whatever that function might return (which is nothing, in this case). jQuery will call the function later, when the event occurs.
+          </p>
+          <p>
+            jQuery does offer special methods for the most common events, such as <code>.click()</code>, but they are just shorthand for <code>.on()</code> and don't save much typing, so they are mostly for legacy code. Stick with <code>.on()</code> for all of your event needs.
+          </p>
+        </div>
+        <h2>Event types</h2>
+        <div>
+          <p>
+            There are many possible events your application can react to. I'll list the most common here.
+          </p>
+          <h3>Mouse events</h3>
+          <ul>
+            <li><code>click</code>*: mouse button pressed and release on an element</li>
+            <li><code>mousedown</code>*: button pressed on an element</li>
+            <li><code>mouseup</code>*: button released on an element</li>
+            <li><code>mousemove</code>: mouse moved</li>
+            <li><code>mouseover</code>: mouse moves onto an element</li>
+            <li><code>mouseout</code>: mouse moves off of an element</li>
+          </ul>
+          <p>
+            The events marked with an asterisk (*) also apply to touchscreens.
+          </p>
+          <h3>Keyboard events</h3>
+          <ul>
+            <li><code>keydown</code>: key pressed</li>
+            <li><code>keyup</code>: key released</li>
+            <li><code>keypress</code>: character typed</li>
+          </ul>
+          <p>
+            <code>keydown</code> and <code>keyup</code> are fired for every key, including special keys like arrows and Shift. <code>keypress</code> only fires when an actual character is typed in, say, an input field. Unlike the first two, it distinguishes between, e.g., 'a' and 'A'.
+          </p>
+          <h3>Form events</h3>
+          <ul>
+            <li><code>focus</code>: element gets keyboard focus</li>
+            <li><code>blur</code>: element loses keyboard focus</li>
+            <li><code>input</code>: input's value changed (immediate)</li>
+            <li><code>change</code>: input's value changed (on blur)</li>
+          </ul>
+          <p>
+            Elements get or lose focus due to clicking or tabbing. Traditionally, only inputs, buttons, and the like could have focus, but in HTML5, any element with a nonnegative <code>tabindex</code> attribute can.
+          </p>
+          <p>
+            The <code>input</code> event fires every time the user changes the value of an input (typing, pasting, undoing, etc.). The <code>change</code> event waits until the user has finished with the field and tabbed or clicked elsewhere.
+          </p>
+          <h3>Browser events</h3>
+          <ul>
+            <li><code>resize</code>: window has been resized</li>
+          </ul>
+          <p>
+            Though you should rely primarily on CSS for responsive design, there are situations where you may need to watch for window resizing in your JavaScript, like this:
+            <pre>
+  $(window).on( 'resize', function( ) {
+    var newWidth = $(window).width();
+    //Adjust elements...
+  } );
+            </pre>
+          </p>
+        </div>
+        <h2>The event handler</h2>
+        <div>
+          <p>
+            The event handler function receives an <em>event object</em> as an argument. It has some useful properties:
+          </p>
+          <ul>
+            <li><code>type</code>: type of event ('click', etc.)</li>
+            <li><code>target</code>: the element that initiated the event</li>
+            <li><code>currentTarget</code>: the selected element that got the event</li>
+            <li><code>pageX</code> &amp; <code>pageY</code>: position of mouse</li>
+            <li><code>which</code>: character or key code for keyboard event</li>
+          </ul>
+          <p>
+            In the handler, the <code>this</code> variable refers to the element on which the handler was set. It is the same as <code>event.currentTarget</code>
+          </p>
+          <p>
+            You will usually want to wrap <code>this</code> or <code>event.target</code> in the <code>$()</code> function so that you can use all of jQuery's methods with them.
+          </p>
+          <p>
+            Here's a simple example, using a form containing an input and a button:
+          </p>
+          <form id="event-form">
+            <input type="text" id="event-input" />
+            <button type="button" id="event-button">A button</button>
+          </form>
+          <pre>
+  function handleClick( evt ) {
+    console.log( 'Click' );
+    console.log( 'this: ', $(this).attr( 'id' ) );
+    console.log( 'evt.target: ', $(evt.target).attr( 'id' ) );
+    console.log( 'evt.currentTarget: ', $(evt.currentTarget).attr( 'id' ) );
+  }
+
+  function logValue( evt ) {
+      console.log( 'type: ', evt.type );
+      console.log( 'value: ', $(this).val() );
+  }
+
+  $('#event-form').on( 'click', handleClick );
+  $('#event-input').on( 'input change', logValue );
+          </pre>
+          <button type="button" class="runCode">Run</button>
+          <p>
+            Notice that we can list more than one event to handle, separating the event types with spaces.
+          </p>
+        </div>
+        <h2>Delegation</h2>
+        <div>
+          <p>
+            In the form we have been using it, <code>.on()</code> handles events that occur on the element(s) in the selection (e.g. on the <code>'#event-input'</code> element) that already exist when it is called.
+          </p>
+          <p>
+            We can supply another argument to <code>.on()</code>, a <em>selector</em>, which does two things. First, it tells jQuery to call the event handler only when the even happens on elements inside the original selection (descendants) that match the selector. Second, it works even on such elements that might have been added after <code>.on()</code> was called. This is called <em>delegation</em>.
+          </p>
+          <p>
+            Let's see this in action by adding an item to a list after the event handlers have been set:
+          </p>
+          <ul id="delegation-list">
+            <li>Already here</li>
+          </ul>
+          <pre>
+  var list = $('#delegation-list');
+  var listItems = $('#delegation-list li');
+  listItems.on( 'click', nonDelegatedHandler );
+  list.on( 'click', 'li', delegatedHandler );
+  var newItem = $( '&lt;li&gt;').text( 'New item' );
+  list.append( newItem );
+
+  function nonDelegatedHandler( evt ) {
+      console.log( 'Non-delegated: ', $(evt.target).text() );
+  }
+
+    function delegatedHandler( evt ) {
+        console.log( 'Delegated: ', $(evt.target).text() );
+    }
+          </pre>
+          <button type="button" class="runCode">Run</button>
+        </div>
+        <h2><code>off()</code> and <code>one()</code></h2>
+        <div>
+          <p>
+            There are two other jQuery event-related functions that you should know about.
+          </p>
+          <p>
+            If you need to turn off event handling that you set earlier with <code>.on()</code>, use the <code>.off()</code> function.
+          </p>
+          <p>
+            If you want to set a handler so that it only responds the first time the event occurs, but is turned off after that, use <code>.one()</code>.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <button type="button" id="accordionToggle"></button>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="Lectures.js"></script>
+  </body>
+</html>
