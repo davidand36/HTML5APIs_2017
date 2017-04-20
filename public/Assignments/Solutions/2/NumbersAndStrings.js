@@ -129,7 +129,7 @@ function reset( ) {
     count = 0;
     sum = 0;
     average = undefined;
-    stringCont = 0;
+    stringCount = 0;
     concatenatedString = '';
     wordCounts = {};
     DisplayResults( );
