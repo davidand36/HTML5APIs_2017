@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>HTML5 APIs: Assignment 3</title>
+    <link rel="stylesheet" href="../list.css" />
+  </head>
+  <body>
+
+    <h1>HTML5 APIs Assignment 3: Inputs</h1>
+
+    <p>
+      Make a table for different kinds of input elements. (This includes not just <code>input</code> elements per se, but also <code>textarea</code> and <code>select</code>.) In the first column, show type of input (e.g. <code>input type="checkbox"</code>). In the second column, put an actual element of that type. The third column is for the values entered by the user.
+    </p>
+    <p>
+      Your JavaScript should read and display the initial value for each input, and then handle the <code>change</code> event for the inputs by displaying the new value. For most inputs, you can use jQuery's <code>val()</code> method. An exception is checkboxes, for which you can use jQuery's <code>prop()</code> method.
+    </p>
+    <p>
+      Include most of the input types HTML5 offers, including <code>select</code> with the <code>multiple</code> attribute. (Certain input types, such as buttons, don't really have values, so don't bother with those.) Try using HTML5's <code>datalist</code> element with <code>input</code>, too.
+    </p>
+    <p>
+      Here's what the table might look like: <br/>
+      <img src="Inputs.png" /> <br/>
+    </p>
+
+    <h2>Option: Mirrored Inputs</h2>
+    <p>
+      Add an extra column after the second, with another copy of each input element. You might want to give elements in column 2 attributes like <code>name="checkbox_1"</code>; and those in column 3, <code>name="checkbox_2"</code>. Write handlers for <code>input</code> and <code>change</code> so that whatever value the user enters in one input is reflected in the other, as well as in column 4.
+    </p>
+    <p>
+      For most inputs, you can use jQuery's <code>val()</code> method to set the value of the mirrored input. For radio buttons, see the jQuery documentation about passing an array of values. For checkboxes, you'll want to use <code>prop()</code>.
+    </p>
+    <p>
+      The table might look like: <br/>
+      <img src="MirroredInputs.png" /> <br/>
+    </p>
+
+    <hr />
+    <p>
+      Use <a href="https://canvas.uw.edu/courses/1105441/assignments" target="_blank">Canvas</a> to submit the URL to your Web page.
+    </p>
+  </body>
+</html>
