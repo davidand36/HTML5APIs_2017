@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Where Am I?</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <link rel="stylesheet" href="WhereAmI.css" />
+  </head>
+  <body>
+
+    <div id="errorMessageDiv"></div>
+
+    <table id="dateTimeTable">
+      <tbody>
+        <tr id="localDateTimeRow">
+          <td>Date &amp; time (local)</td>
+          <td id="localDateTimeCell"></td>
+        </tr>
+        <tr id="utcDateTimeRow">
+          <td>Date &amp; time (UTC)</td>
+          <td id="utcDateTimeCell"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table id="geolocationTable">
+      <tbody>
+        <tr id="latitudeRow">
+          <td>Latitude</td>
+          <td id="latitudeCell"></td>
+        </tr>
+        <tr id="longitudeRow">
+          <td>Longitude</td>
+          <td id="longitudeCell"></td>
+        </tr>
+        <tr id="altitudeRow">
+          <td>Altitude</td>
+          <td id="altitudeCell"></td>
+        </tr>
+        <tr id="speedRow">
+          <td>Speed</td>
+          <td id="speedCell"></td>
+        </tr>
+        <tr id="headingRow">
+          <td>Heading</td>
+          <td id="headingCell"></td>
+        </tr>
+        <tr id="accuracyRow">
+          <td>Accuracy</td>
+          <td id="accuracyCell"></td>
+        </tr>
+        <tr id="altitudeAccuracyRow">
+          <td>Altitude accuracy</td>
+          <td id="altitudeAccuracyCell"></td>
+        </tr>
+        <tr id="geolocAcquiredRow">
+          <td>Time acquired</td>
+          <td id="geolocAcquiredCell"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table id="orientationTable">
+      <tbody>
+        <tr id="alphaRow">
+          <td>Alpha (Z) Euler angle</td>
+          <td id="alphaCell"></td>
+        </tr>
+        <tr id="betaRow">
+          <td>Beta (X) Euler angle</td>
+          <td id="betaCell"></td>
+        </tr>
+        <tr id="gammaRow">
+          <td>Gamma (Y) Euler angle</td>
+          <td id="gammaCell"></td>
+        </tr>
+        <tr id="absoluteOrientationRow">
+          <td>Absolute orientation</td>
+          <td id="absoluteOrientationCell"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table id="motionTable">
+      <tbody>
+        <tr id="xAccelerationRow">
+          <td>X acceleration</td>
+          <td id="xAccelerationCell"></td>
+        </tr>
+        <tr id="yAccelerationRow">
+          <td>Y acceleration</td>
+          <td id="yAccelerationCell"></td>
+        </tr>
+        <tr id="zAccelerationRow">
+          <td>Z acceleration</td>
+          <td id="zAccelerationCell"></td>
+        </tr>
+        <tr id="xAccelGravityRow">
+          <td>X accel (incl gravity)</td>
+          <td id="xAccelGravityCell"></td>
+        </tr>
+        <tr id="yAccelGravityRow">
+          <td>Y accel (incl gravity)</td>
+          <td id="yAccelGravityCell"></td>
+        </tr>
+        <tr id="zAccelGravityRow">
+          <td>Z accel (incl gravity)</td>
+          <td id="zAccelGravityCell"></td>
+        </tr>
+        <tr id="alphaRotationRow">
+          <td>Alpha rotation</td>
+          <td id="alphaRotationCell"></td>
+        </tr>
+        <tr id="betaRotationRow">
+          <td>Beta rotation</td>
+          <td id="betaRotationCell"></td>
+        </tr>
+        <tr id="gammaRotationRow">
+          <td>Gamma rotation</td>
+          <td id="gammaRotationCell"></td>
+        </tr>
+        <tr id="motionIntervalRow">
+          <td>Motion interval</td>
+          <td id="motionIntervalCell"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button type="button" id="watchGeolocation">Watch Geolocation</button>
+    <button type="button" id="watchOrientation">Watch Orientation</button>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script>
+    <script src="Geolocation.js"></script>
+    <script src="WhereAmI.js"></script>
+  </body>
+</html>
