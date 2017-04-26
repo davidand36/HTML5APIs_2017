@@ -8,14 +8,15 @@
 'use strict';
 //=============================================================================
 
-var watchingGeolocation = false;
-var watchingOrientation = false;
+var watchingGeolocation = 0;
+var watchingOrientation = 0;
 
 //=============================================================================
 
 geolocation.setErrorHandler( displayError );
 geolocation.getOnce( );
 setupUpdateLoop( );
+setButtonHandlers( );
 
 //=============================================================================
 
@@ -158,6 +159,25 @@ function makeDateTimeString( date, utc ) {
     str += makeNumberString( ms, 0, 3 );
 
     return str;
+}
+
+//=============================================================================
+
+function setButtonHandlers( ) {
+    $('#watchGeolocation').on( 'click', toggleWatchGeolocation );
+}
+
+//-----------------------------------------------------------------------------
+
+function toggleWatchGeolocation( ) {
+    var buttonTexts = [ 'Stop Geolocation', 'Watch Geolocation' ];
+    if ( watchingGeolocation ) {
+        geolocation.stopWatching( );
+    } else {
+        geolocation.startWatching( );
+    }
+    $('#watchGeolocation').text( buttonTexts[ watchingGeolocation ] );
+    watchingGeolocation ^= 1;
 }
 
 //=============================================================================
