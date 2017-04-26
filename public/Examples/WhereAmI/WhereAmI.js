@@ -72,7 +72,7 @@ function displayGeolocation( ) {
         value = geolocPos.coords[ field.name ];
         var tableRow = $( '#' + field.name + 'Row' );
         var tableCell = $( '#' + field.name + 'Cell' );
-        if ( value === null ) {
+        if ( value === null || value === undefined ) {
             tableRow.hide( );
         } else {
             tableCell.text( makeNumberString( value, field.decimals, 0 ) + field.unit );
@@ -90,9 +90,9 @@ function displayGeolocation( ) {
     }
 
     if ( rowsShown > 0 ) {
-        $( 'geolocationTable' ).show( );
+        $( '#geolocationTable' ).show( );
     } else {
-        $( 'geolocationTable' ).hide( );
+        $( '#geolocationTable' ).hide( );
     }
 }
 
