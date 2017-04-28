@@ -13,8 +13,8 @@ var watchingOrientation = 0;
 
 //=============================================================================
 
-geolocation.setErrorHandler( displayError );
-geolocation.getOnce( );
+geolocationService.setErrorHandler( displayError );
+geolocationService.getOnce( );
 setupUpdateLoop( );
 setButtonHandlers( );
 
@@ -63,11 +63,11 @@ function displayGeolocation( ) {
     var rowsShown = 0;
     var value;
 
-    if ( geolocation.hasChanged() === false ) {
+    if ( geolocationService.hasChanged() === false ) {
         return;
     }
 
-    geolocPos = geolocation.getPosition();
+    geolocPos = geolocationService.getPosition();
 
     geolocFields.forEach( function( field ) {
         value = geolocPos.coords[ field.name ];
@@ -172,9 +172,9 @@ function setButtonHandlers( ) {
 function toggleWatchGeolocation( ) {
     var buttonTexts = [ 'Stop Geolocation', 'Watch Geolocation' ];
     if ( watchingGeolocation ) {
-        geolocation.stopWatching( );
+        geolocationService.stopWatching( );
     } else {
-        geolocation.startWatching( );
+        geolocationService.startWatching( );
     }
     $('#watchGeolocation').text( buttonTexts[ watchingGeolocation ] );
     watchingGeolocation ^= 1;

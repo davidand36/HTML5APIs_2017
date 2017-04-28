@@ -1,14 +1,13 @@
 /*
-    Geolocation.js
+    GeolocationService.js
 
-    Routines for getting and watching Geolocation
+    Routines for getting and watching geolocation
 */
 
-geolocation = (function( ) {
+geolocationService = (function( ) {
     'use strict';
     //=========================================================================
 
-    var navGeoloc = navigator.geolocation;
     var options = {
         enableHighAccuracy: true,
         maximumAge: 600000, //millisec
@@ -20,6 +19,7 @@ geolocation = (function( ) {
     var errorHandler;
 
     return {
+        isSupported: isSupported,
         setErrorHandler: setErrorHandler,
         getOnce: getOnce,
         startWatching: startWatching,
@@ -30,22 +30,28 @@ geolocation = (function( ) {
 
     //=========================================================================
 
+    function isSupported( ) {
+        return (navigator && navigator.geolocation);
+    }
+
+    //=========================================================================
+
     function getOnce( ) {
-        if ( ! navGeoloc ) {
+        if ( ! isSupported() ) {
             return;
         }
 
-        navGeoloc.getCurrentPosition( setPosition, handleError, options );
+        navigator.geolocation.getCurrentPosition( setPosition, handleError, options );
     }
 
     //=========================================================================
 
     function startWatching( ) {
-        if ( ! navGeoloc ) {
+        if ( ! isSupported() ) {
             return;
         }
 
-        watchId = navGeoloc.watchPosition( setPosition, handleError, options );
+        watchId = navigator.geolocation.watchPosition( setPosition, handleError, options );
     }
 
     //-------------------------------------------------------------------------
@@ -53,7 +59,7 @@ geolocation = (function( ) {
      function stopWatching( ) {
          if ( watchId )
          {
-             navGeoloc.clearWatch( watchId );
+             navigator.geolocation.clearWatch( watchId );
              watchId = null;
          }
      }
@@ -89,10 +95,6 @@ geolocation = (function( ) {
     function handleError( error ) {
         var message;
 
-        if ( ! errorHandler ) {
-            return;
-        }
-
         switch ( error.code ) {
             case error.PERMISSION_DENIED:
             message = "Geolocation permission denied.";
@@ -106,7 +108,11 @@ geolocation = (function( ) {
         }
         message += '\n' + error.message;
 
-        errorHandler( message );
+        if ( errorHandler ) {
+            errorHandler( message );
+        } else {
+            console.log( message );
+        }
     }
 
     //=========================================================================
