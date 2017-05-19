@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>LocalStorage Settings</title>
+  </head>
+  <body>
+
+    <h1>LocalStorage Settings</h1>
+
+    <div id="hello-page">
+      <p>
+        Hello, <span class="show-name"></span>!
+      </p>
+      <button type="button" id="edit-settings">Edit Settings</button>
+      <button type="button" id="clear-settings">Clear Settings</button>
+    </div>
+
+
+    <div id="form-page" style="display:none">
+      <form>
+        <label for="name">Your name:</label>
+        <input type="text" id="name" />
+        <button type="submit" id="submit">Submit</button>
+      </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script>
+    <script src="LocalStorageSettings.js"></script>
+  </body>
+</html>
