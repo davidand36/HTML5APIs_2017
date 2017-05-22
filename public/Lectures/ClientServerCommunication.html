@@ -41,7 +41,7 @@
           </p>
           <p>
             The <em>URL</em> determines where the request is sent, but may also indicate the nature of the request to the server. For example, the URL <br />
-            <code>https://pacific-meadow-64112.herokuapp.com/data-api/danderson?skip=1&amp;limit=2</code> <br />
+            <code>https://pacific-meadow-64112.herokuapp.com/data-api/danderson?skip=20&amp;limit=10</code> <br />
             is sent to the server at <code>https://pacific-meadow-64112.herokuapp.com</code>, which then, processes the request a bit and passes it to a <code>DataApi</code> module, which in turn calls a function that returns data for a collection called "danderson". The portion of the URL after the question mark (<code>?</code>) is called a <em>query string</em> and will be discussed below.
           </p>
           <p>
@@ -63,7 +63,7 @@
             Requests can also send data.
           </p>
           <p>
-            For GET requests, the data are appended to the URL as query strings. In the example URL given above, the query string <code>offset=8&limit=4</code> sends a parameter called <code>offset</code>, with a value of <code>8</code> and a parameter called <code>limit</code>, with a value of <code>4</code>.
+            For GET requests, the data are appended to the URL as query strings. In the example URL given above, the query string <code>skip=20&amp;limit=10</code> sends a parameter called <code>skip</code>, with a value of <code>20</code> and a parameter called <code>limit</code>, with a value of <code>10</code>.
           </p>
           <p>
             For POST and PUT requests, data can also be sent in the request <em>body</em>. One reason for this is that URLs are limited in length, generally to around 2000 characters. Servers also limit the size of the request body, but the limit is typically much higher.
@@ -220,233 +220,23 @@ function logAjaxError( jqXHR, textStatus, errorThrown ) {
           </p>
         </div>
         <h2>Example</h2>
-        <div class="accordion h3">
-          <h3>Sample database</h3>
-          <div>
-            <p>
-              For this course I have set up a simple RESTful API to a <a href="https://www.mongodb.com/" target="_blank">MongoDB</a> database. There will be one collection for each of us. The name of your collection is your first initial plus your last name. For example, since my name is David Anderson, my collection is "danderson". MongoDB is a NoSQL database, so you can put any plain JavaScript objects in your collection.
-            </p>
-            <p>
-              Now let's see how each of the CRUD operations can be done using AJAX.
-            </p>
-          </div>
-          <h3>Create</h3>
-          <div>
-            <p>
-              Items are created using the <code>POST</code> method. Here is a simple form and the code that sets up the handler to submit the data:
-            </p>
-            <form>
-              <label>Name:
-                <input type="text" id="create-name" />
-              </label>
-              <label>Age:
-                <input type="number" id="create-age" />
-              </label>
-              <button type="button" id="create-submit">Submit</button>
-            </form>
-            <pre>
-$('#create-submit').off( );
-$('#create-submit').on( 'click', function( evt ) {
-    var baseUrl = 'https://pacific-meadow-64112.herokuapp.com/data-api/';
-    var collection = 'danderson'; //Use your own!
-    var name = $('#create-name').val();
-    var age = $('#create-age').val();
-
-    evt.preventDefault( );
-
-    $.ajax( baseUrl + collection,
-    {
-        method: 'POST',
-        data: {
-                  name: name,
-                  age: age
-              },
-        success: logCreateResult,
-        error: logAjaxError
-    } );
-} );
-
-function logCreateResult( data ) {
-    console.log( 'Data received:', data );
-}
-
-function logAjaxError( jqXHR, textStatus, errorThrown ) {
-    console.log( 'AJAX error. Status:', textStatus, 'error:', errorThrown );
-}
-            </pre>
-            <button type="button" class="runCode">Run</button>
-            <p>
-              If you check the console, you will see that on success, the API returns the ID of the newly-created item. RESTful APIs differ in exactly what they return, but they should at least give you that.
-            </p>
-          </div>
-          <h3>Read</h3>
-          <div>
-            <p>
-              Items are read using the <code>GET</code> method. As mentioned earlier, there are two forms of reading: a list or a single item.
-            </p>
-            <div>
-              <p>
-                For a list, we use the collection URI:
-                <pre>
-var baseUrl = 'https://pacific-meadow-64112.herokuapp.com/data-api/';
-var collection = 'danderson'; //Use your own!
-
-$.ajax( baseUrl + collection,
-{
-    method: 'GET',
-    success: logListResult,
-    error: logAjaxError
-} );
-
-function logListResult( data ) {
-    console.log( 'Data received:', data );
-}
-
-function logAjaxError( jqXHR, textStatus, errorThrown ) {
-    console.log( 'AJAX error. Status:', textStatus, 'error:', errorThrown );
-}
-                </pre>
-                <button type="button" class="runCode">Run</button>
-              </p>
-              <p>
-                For a full list, we don't need to supply any data in the request. For large collections, you wouldn't usually want to send the entire list. Consequently, most APIs provide ways to get just some of the items. For this API, you can specify how many items to skip and a limit on the number to return. I used these in the AJAX with jQuery section above. This allows you to "paginate" the list. First you would set <code>skip: 0</code> and <code>limit: 10</code>, say. You would then provide a button or other UI to allow the user to go to the next "page", with <code>skip: 10</code> and <code>limit: 10</code>. The fifth "page" would have <code>skip: 40</code> and <code>limit: 10</code>.
-              </p>
-            </div>
-            <div>
-              <p>
-                To read an individual item, you need to supply the ID. Here's a form where you can enter the ID and retrieve the item:
-              </p>
-              <form>
-                <label>ID:
-                  <input type="text" id="read-id" />
-                </label>
-                <button type="button" id="read-submit">Submit</button>
-              </form>
-              <pre>
-$('#read-submit').off( );
-$('#read-submit').on( 'click', function( evt ) {
-    var baseUrl = 'https://pacific-meadow-64112.herokuapp.com/data-api/';
-    var collection = 'danderson'; //Use your own!
-    var id = $('#read-id').val();
-
-    evt.preventDefault( );
-
-    $.ajax( baseUrl + collection + '/' + id,
-    {
-        method: 'GET',
-        success: logReadResult,
-        error: logAjaxError
-    } );
-} );
-
-function logReadResult( data ) {
-    console.log( 'Data received:', data );
-}
-
-function logAjaxError( jqXHR, textStatus, errorThrown ) {
-    console.log( 'AJAX error. Status:', textStatus, 'error:', errorThrown );
-}
-              </pre>
-              <button type="button" class="runCode">Run</button>
-              <p>
-                This is a bit artificial. In a real application, you would maintain the IDs behind the scenes and not concern the user with them.
-              </p>
-            </div>
-          </div>
-          <h3>Update</h3>
-          <div>
-            <p>
-              Updating, that is modifying an existing item, is done using the <code>PUT</code> method. You need to supply the ID in the URL and all of the properties of the object, not just the ones that change:
-            </p>
-            <form>
-              <label>ID:
-                <input type="text" id="update-id" />
-              </label>
-              <label>Name:
-                <input type="text" id="update-name" />
-              </label>
-              <label>Age:
-                <input type="number" id="update-age" />
-              </label>
-              <button type="button" id="update-submit">Submit</button>
-            </form>
-            <pre>
-$('#update-submit').off( );
-$('#update-submit').on( 'click', function( evt ) {
-    var baseUrl = 'https://pacific-meadow-64112.herokuapp.com/data-api/';
-    var collection = 'danderson'; //Use your own!
-    var id = $('#update-id').val();
-    var name = $('#update-name').val();
-    var age = $('#update-age').val();
-
-    evt.preventDefault( );
-
-    $.ajax( baseUrl + collection + '/' + id,
-    {
-        method: 'PUT',
-        data: {
-                  name: name,
-                  age: age
-              },
-        success: logUpdateResult,
-        error: logAjaxError
-    } );
-} );
-
-function logUpdateResult( data ) {
-    console.log( 'Data received:', data );
-}
-
-function logAjaxError( jqXHR, textStatus, errorThrown ) {
-    console.log( 'AJAX error. Status:', textStatus, 'error:', errorThrown );
-}
-            </pre>
-            <button type="button" class="runCode">Run</button>
-            <p>
-              (Again, the user wouldn't actually enter the ID in a real Web app.)
-            </p>
-          </div>
-          <h3>Delete</h3>
-          <div>
-            <p>
-              To delete an item, we use the <code>DELETE</code> method and supply the ID in the URL:
-            </p>
-            <form>
-              <label>ID:
-                <input type="text" id="delete-id" />
-              </label>
-              <button type="button" id="delete-submit">Submit</button>
-            </form>
-            <pre>
-$('#delete-submit').off( );
-$('#delete-submit').on( 'click', function( evt ) {
-    var baseUrl = 'https://pacific-meadow-64112.herokuapp.com/data-api/';
-    var collection = 'danderson'; //Use your own!
-    var id = $('#delete-id').val();
-
-    evt.preventDefault( );
-
-    $.ajax( baseUrl + collection + '/' + id,
-    {
-        method: 'DELETE',
-        success: logDeleteResult,
-        error: logAjaxError
-    } );
-} );
-
-function logDeleteResult( data ) {
-    console.log( 'Data received:', data );
-}
-
-function logAjaxError( jqXHR, textStatus, errorThrown ) {
-    console.log( 'AJAX error. Status:', textStatus, 'error:', errorThrown );
-}
-            </pre>
-            <button type="button" class="runCode">Run</button>
-            <p>
-              (Again, the user wouldn't actually enter the ID in a real Web app.)
-            </p>
-          </div>
+        <div>
+          <p>
+            For this course I have set up a simple RESTful API connected to a <a href="https://www.mongodb.com/" target="_blank">MongoDB</a> database.
+          </p>
+          <p>
+            The base URL for this API is <br/>
+            <code>https://pacific-meadow-64112.herokuapp.com/data-api/</code>
+          </p>
+          <p>
+            There will be one collection for each of us. The name of your collection is your first initial plus your last name. For example, since my name is David Anderson, my collection is <code>danderson</code>. MongoDB is a NoSQL database, and you can put any plain JavaScript objects in your collection.
+          </p>
+          <p>
+            Here is a little app that exercises each of the CRUD applications on my collection: <a href="/Examples/RestTest/" target="_blank">REST Test</a>.
+          </p>
+          <p>
+            This example is a bit artificial because in a real application, you would maintain the IDs behind the scenes and not concern the user with them.
+          </p>
         </div>
       </div>
 

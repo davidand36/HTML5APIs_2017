@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>REST Test</title>
+  </head>
+  <body>
+    <h1>REST Test</h1>
+
+    <h2>Create</h2>
+    <form>
+      <label>Name:
+        <input type="text" id="create-name" />
+      </label>
+      <label>Age:
+        <input type="number" id="create-age" />
+      </label>
+      <button type="button" id="create-submit">Submit</button>
+    </form>
+
+    <h2>Read list</h2>
+    <button type="button" id="read-list">Read list</button>
+
+    <h2>Read one</h2>
+    <form>
+      <label>ID:
+        <input type="text" id="read-id" />
+      </label>
+      <button type="button" id="read-submit">Submit</button>
+    </form>
+
+    <h2>Update</h2>
+    <form>
+      <label>ID:
+        <input type="text" id="update-id" />
+      </label>
+      <label>Name:
+        <input type="text" id="update-name" />
+      </label>
+      <label>Age:
+        <input type="number" id="update-age" />
+      </label>
+      <button type="button" id="update-submit">Submit</button>
+    </form>
+
+    <h2>Delete</h2>
+    <form>
+      <label>ID:
+        <input type="text" id="delete-id" />
+      </label>
+      <button type="button" id="delete-submit">Submit</button>
+    </form>
+
+    <hr />
+
+    <h2>Response</h2>
+    <pre id="response"></pre>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script>
+    <script src="RestTest.js"></script>
+  </body>
+</html>

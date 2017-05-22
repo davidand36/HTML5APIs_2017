@@ -52,7 +52,7 @@ module.exports = function( express ) {
             if ( request.query.count ) {
                 cursor.count( function( err, count ) {
                     if ( err ) {
-                        response.send( { error: err } );
+                        response.status( 500 ).send( { error: err } );
                     } else {
                         response.send( { count: count } );
                     }
@@ -67,14 +67,15 @@ module.exports = function( express ) {
                 }
                 cursor.toArray( function( err, docs ) {
                     if ( err ) {
-                        response.send( { error: err } );
+                        response.status( 500 ).send( { error: err } );
                     } else {
                         response.send( docs );
                     }
                 } );
             }
         } catch ( excptn ) {
-            response.send( { error: excptn } );;
+            response.status( excptn.status || 500 );
+            response.send( { error: excptn.error || 'Unknown error' } );;
         }
     }
 
@@ -86,17 +87,18 @@ module.exports = function( express ) {
             var id = makeId( request.params.id );
             collection.findOne( { _id: id }, function( err, doc ) {
                 if ( err ) {
-                    response.send( { error: err } );
+                    response.status( 500 ).send( { error: err } );
                 } else {
                     if ( doc ) {
                         response.send( doc );
                     } else {
-                        response.send( { error: 'No matching item' } );
+                        response.status( 404 ).send( { error: 'No matching item' } );
                     }
                 }
             } );
         } catch ( excptn ) {
-            response.send( { error: excptn } );;
+            response.status( excptn.status || 500 );
+            response.send( { error: excptn.error || 'Unknown error' } );;
         }
     }
 
@@ -108,13 +110,14 @@ module.exports = function( express ) {
             var item = request.body;
             collection.insertOne( item, function( err, result ) {
                 if ( err ) {
-                    response.send( { error: err } );
+                    response.status( 500 ).send( { error: err } );
                 } else {
                     response.send( { created: result.insertedId } );
                 }
             } );
         } catch ( excptn ) {
-            response.send( { error: excptn } );;
+            response.status( excptn.status || 500 );
+            response.send( { error: excptn.error || 'Unknown error' } );;
         }
     }
 
@@ -127,13 +130,16 @@ module.exports = function( express ) {
             var item = request.body;
             collection.updateOne( { _id: id }, { $set: item }, function( err, result ) {
                 if ( err ) {
-                    response.send( { error: err } );
+                    response.status( 500 ).send( { error: err } );
+                } else if ( result.modifiedCount !== 1 ) {
+                    response.status( 404 ).send( { error: 'No matching item' } );
                 } else {
                     response.send( { updated: id } );
                 }
             } );
         } catch ( excptn ) {
-            response.send( { error: excptn } );;
+            response.status( excptn.status || 500 );
+            response.send( { error: excptn.error || 'Unknown error' } );;
         }
     }
 
@@ -145,13 +151,14 @@ module.exports = function( express ) {
             var id = makeId( request.params.id );
             collection.deleteOne( { _id: id }, function( err, result ) {
                 if ( err ) {
-                    response.send( { error: err } );
+                    response.status( 500 ).send( { error: err } );
                 } else {
                     response.send( { deleted: id } );
                 }
             } );
         } catch ( excptn ) {
-            response.send( { error: excptn } );;
+            response.status( excptn.status || 500 );
+            response.send( { error: excptn.error || 'Unknown error' } );;
         }
     }
 
@@ -159,10 +166,19 @@ module.exports = function( express ) {
 
     function getCollection( collName ) {
         var accounts = process.env.DATA_API_ACCOUNTS.split( ',' );
+        if ( ! database ) {
+            throw {
+                status: 500,
+                error: 'No database connection'
+            };
+        }
         if ( accounts.indexOf( collName ) >= 0 ) {
             return database.collection( collName );
         } else {
-            throw 'Invalid collection: ' + collName;
+            throw {
+                status: 404,
+                error: 'Invalid collection: ' + collName
+            };
         }
     }
 
@@ -172,7 +188,10 @@ module.exports = function( express ) {
         try {
             return new mongodb.ObjectID( idStr );
         } catch ( excptn ) {
-            throw 'Bad ID: ' + idStr;
+            throw {
+                status: 400,
+                error: 'Bad ID: ' + idStr
+            };
         }
     }
 
