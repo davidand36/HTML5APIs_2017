@@ -19,13 +19,13 @@ function displayPeople( ) {
     var i, len, person;
     var tr;
 
-    $('#people').empty();
-
     app.dataMgr.listItems( displayPersonTable, displayError );
 
     //-------------------------------------------------------------------------
 
     function displayPersonTable( people ) {
+        $('#people').empty();
+
         for ( i = 0, len = people.length; i < len; ++i ) {
             tr = makeTableRow( people[ i ] );
             $('#people').append( tr );
