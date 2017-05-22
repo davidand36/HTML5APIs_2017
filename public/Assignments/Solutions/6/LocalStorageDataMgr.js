@@ -11,7 +11,7 @@ app.dataMgr = (function() {
     'use strict';
     //=========================================================================
 
-    var ITEMS_KEY = 'LSDM_items';
+    var ITEMS_KEY = 'LSDB_items';
 
     var items = [];
     var nextId = 1000;
