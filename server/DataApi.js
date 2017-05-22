@@ -158,7 +158,7 @@ module.exports = function( express ) {
     //=========================================================================
 
     function getCollection( collName ) {
-        var accounts = process.env.DATA_API_ACCOUNTS;
+        var accounts = process.env.DATA_API_ACCOUNTS.split( ',' );
         if ( accounts.indexOf( collName ) >= 0 ) {
             return database.collection( collName );
         } else {
