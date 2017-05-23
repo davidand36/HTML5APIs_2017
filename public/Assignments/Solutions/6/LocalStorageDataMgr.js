@@ -18,6 +18,15 @@ app.dataMgr = (function() {
 
     //=========================================================================
 
+    return {
+        listItems: listItems,
+        createItem: createItem,
+        updateItem: updateItem,
+        deleteItem: deleteItem
+    };
+
+    //=========================================================================
+
     function listItems( onSuccess, onFailure ) {
         try {
             var itemsString = localStorage[ ITEMS_KEY ];
@@ -99,15 +108,6 @@ app.dataMgr = (function() {
     function saveItems( ) {
         localStorage[ ITEMS_KEY ] = JSON.stringify( items );
     }
-
-    //=========================================================================
-
-    return {
-        listItems: listItems,
-        createItem: createItem,
-        updateItem: updateItem,
-        deleteItem: deleteItem
-    };
 
 
     //=========================================================================
