@@ -16,6 +16,15 @@ app.dataMgr = (function() {
 
     //=========================================================================
 
+    return {
+        listItems: listItems,
+        createItem: createItem,
+        updateItem: updateItem,
+        deleteItem: deleteItem
+    };
+
+    //=========================================================================
+
     function listItems( onSuccess, onFailure ) {
         $.ajax( baseUrl + collection,
                 {
@@ -133,15 +142,6 @@ app.dataMgr = (function() {
                   'Status: ' + textStatus + '<br/>' +
                   'Error: ' + errorThrown );
     }
-
-    //=========================================================================
-
-    return {
-        listItems: listItems,
-        createItem: createItem,
-        updateItem: updateItem,
-        deleteItem: deleteItem
-    };
 
 
     //=========================================================================
