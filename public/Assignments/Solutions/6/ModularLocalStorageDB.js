@@ -1,5 +1,5 @@
 /*
-  LocalStorageCrudApp.js
+  ModularLocalStorageDB.js
 
   App that uses Local Storage to manage a simple database
 */

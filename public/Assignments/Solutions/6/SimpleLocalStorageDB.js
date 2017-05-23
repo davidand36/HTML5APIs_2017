@@ -1,7 +1,8 @@
 /*
-  AddedEditDelete.js
+  SimpleLocalStorageDB.js
 
-  Maintains in-memory database. Implements add, edit, and delete
+  Maintains in-memory database. Implements add, edit, and delete.
+  Reads from and writes to localStorage.
 */
 
 (function() {
