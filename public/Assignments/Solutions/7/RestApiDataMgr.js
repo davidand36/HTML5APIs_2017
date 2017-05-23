@@ -1,5 +1,5 @@
 /*
-  RestAppDataMgr.js
+  RestApiDataMgr.js
 
   Manages the data, using the RESTful Data API.
 */
