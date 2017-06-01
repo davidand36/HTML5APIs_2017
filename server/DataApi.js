@@ -17,6 +17,7 @@ module.exports = function( express ) {
 
     connectToDb( );
 
+    express().options( '*', cors() );
     router.get( '/:collctn', cors(), listItems );
     router.get( '/:collctn/:id', cors(), getItem );
     router.post( '/:collctn', cors(), addItem );
