@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>HTML5 APIs: Templates</title>
+    <link rel="stylesheet" href="Lecture.css" />
+  </head>
+  <body>
+
+    <h1 class="top">Templates</h1>
+
+    <div class="accordion h1">
+      <h1>Introduction</h1>
+      <div>
+        <p>
+          When we are creating Web pages that are data-driven, it can be tempting to embed a lot of HTML in our JavaScript code, so that we end up with horrible stuff like this:
+          <pre>
+var htmlString = '';
+...
+htmlString += '	&lt;div id="hint_'+json_hint_id+'" class="hint" data-block="hint" data-id="'+json_hint_id+'" data-type="'+json_hint_type+'" data-name="'+json_hint_name +'" data-active="'+json_hint_active+'"&gt;';
+htmlString += '		&lt;div id="hint_top"&gt;'+json_hint_name_speak+'&lt;div class="hint_dragg"&gt;&lt;/div&gt;&lt;div class="hint_close"&gt;&lt;/div&gt;&lt;/div&gt;';
+htmlString += '		&lt;div id="hint_body"&gt;';
+htmlString += '			&lt;div id="hint_body_content"&gt;';
+htmlString += '				&lt;span class="txt"&gt;'+json_hint_txt+'&lt;/span&gt;';
+htmlString += '			&lt;/div&gt;';
+htmlString += '		&lt;/div&gt;';
+htmlString += '	&lt;/div&gt;';
+
+htmlString += '&lt;/div&gt;';
+...
+$('#mainDiv').html( htmlString );
+          </pre>
+          jQuery offers nicer ways to work with the DOM, creating elements, setting their attributes, and adding them to the DOM. But even so, it is cumbersome and hazardous to go overboard with that.
+        </p>
+        <p>
+          As much as possible, we should maintain a <em>separation of concerns</em>, expressing the structure of our documents in HTML, with an indication of where the data fit in. Templates offer a way to do this. They can look like this:
+          <pre>
+&lt;h1&gt;{{title}}&lt;/h1&gt;
+This is about &lt;em&gt;{{subject}}&lt;/em&gt;. The topics we'll cover include
+&lt;ul&gt;
+  {{#each topics}}
+    &lt;li&gt;{{name}} ({{date}})&lt;/li&gt;
+  {{/each}}
+&lt;/ul&gt;
+          </pre>
+          This is mostly content and mark-up. There is some light-weight logic--the loop over the list of topics--but the business logic of the program--obtaining and managing the data--is handled elsewhere.
+        </p>
+        <p>
+          We then use a <em>template</em> library to produce a string of pure HTML with the data filled in at run-time, and insert that HTML into the Web page.
+        </p>
+        <p>
+          There are quite a few template libraries available. Some systems are designed to run on the server, using Ruby, .NET, PHP, etc. But several are JavaScript libraries that can run on the client. There is at least one <a href="http://codepb.github.io/jquery-template/" target="_blank">template plug-in</a> for jQuery. <a href="http://underscorejs.org/" target="_blank">Underscore</a> is a library that offers many useful methods, including a <code>template()</code> function. (<a href="https://lodash.com/" target="_blank">Lodash</a>, which is a high-performance fork of Underscore, does too.) One of the early JavaScript libraries devoted to templating is <a href="http://mustache.github.io/" target="_blank">Mustache</a>. We will use a library that was inspired by that, called <a href="http://handlebarsjs.com/" target="_blank">Handlebars</a>.
+        </p>
+      </div>
+
+      <h1>Handlebars</h1>
+      <div class="accordion h2">
+        <h2>Usage</h2>
+        <div>
+          <p>
+            <a href="http://handlebarsjs.com/" target="_blank">Handlebars</a> has good documentation, which I won't try to duplicate here. You will need to include the script, which you can download or link to from a CDN, like this:
+            <pre>
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"&gt;&lt;/script&gt;
+            </pre>
+          </p>
+          <p>
+            The primary Handlebars method is <code>compile()</code>, which takes a string argument representing the template and returns a function. For instance:
+            <pre>
+var subtitleTemplateString = '&lt;h2&gt;{{subtitle}}&lt;h2&gt;';
+var subtitleTemplate = HandlebarsTest.compile( subtitleTemplateString );
+            </pre>
+            But of course having the template string in the JavaScript code largely defeats the purpose. A better approach is to put the template text in the HTML file. To keep it from being rendered on the page, we can enclose it in <code>script</code> tags with a type that the browser does not recognize:
+            <pre>
+&lt;script id="subtitleTemplate" type="text/x-handlebars-template"&gt;
+  &lt;h2&gt;{{subtitle}}&lt;h2&gt;
+&lt;/script&gt;
+            </pre>
+            Then we can extract that string using jQuery:
+            <pre>
+var subtitleTemplateString = $('#subtitleTemplate').html();
+var subtitleTemplate = HandlebarsTest.compile( subtitleTemplateString );
+            </pre>
+            or, more concisely,
+            <pre>
+var subtitleTemplate = HandlebarsTest.compile( $('#subtitleTemplate').html() );
+            </pre>
+            (For projects that use Handlebars templates extensively, there is a system for precompiling them )
+          </p>
+          <p>
+            The compiled template is a function. We pass it an object that has properties matching the identifiers in the template text. The function returns the resulting HTML as a string, e.g.:
+            <pre>
+var html = subtitleTemplate( { subtitle: "Today's Big News" } );
+            </pre>
+            This will produce the string <code>'&lt;h2&gt;Today's Big News&lt;h2&gt;'</code>, which is ready to be inserted into the Web page, e.g.:
+            <pre>
+$('#subtitleArea').html( html );
+            </pre>
+          </p>
+          <p>
+            (This was a bit too much work for such a simple bit of HTML. In real life, templates are often used for large chunks of a Web site.)
+          </p>
+        </div>
+        <h2>Example</h2>
+        <div>
+          <p>
+            Here is a little app that illustrates the main features of Handlebars: <a href="/Examples/HandlebarsTest/" target="_blank">Handlebars Test</a>.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <button type="button" id="accordionToggle"></button>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="Lectures.js"></script>
+  </body>
+</html>
