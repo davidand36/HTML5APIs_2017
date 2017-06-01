@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Handlebars Test</title>
+  </head>
+  <body>
+    <h1>Handlebars Test</h1>
+
+    <button type="button" id="hello-button">Show Hello</button>
+    <button type="button" id="name-button">Show Name</button>
+    <button type="button" id="escaped-html-button">Show Escaped HTML</button>
+    <button type="button" id="unescaped-html-button">Show Unescaped HTML</button>
+    <button type="button" id="if-button">Show If</button>
+    <button type="button" id="else-button">Show Else</button>
+    <button type="button" id="string-list-button">Show String List</button>
+    <button type="button" id="table-button">Show Table</button>
+    <button type="button" id="addresses-button">Show Addresses</button>
+    <button type="button" id="phone-button">Show Phone</button>
+
+    <hr />
+
+    <div id="main"></div>
+
+    <!--====================================================================-->
+
+    <script id="helloTemplate" type="text/x-handlebars-template">
+        Hello, {{name}}!
+    </script>
+
+    <!--====================================================================-->
+
+    <script id="nameTemplate" type="text/x-handlebars-template">
+        {{name.first}} {{name.last}}
+    </script>
+
+    <!--====================================================================-->
+
+    <script id="escapedHtmlTemplate" type="text/x-handlebars-template">
+        {{html}}
+    </script>
+
+    <!--====================================================================-->
+
+    <script id="unescapedHtmlTemplate" type="text/x-handlebars-template">
+        {{{html}}}
+    </script>
+
+    <!--====================================================================-->
+
+    <script id="ifElseTemplate" type="text/x-handlebars-template">
+        {{#if name}}
+            {{name.last}}, {{name.first}}
+        {{else}}
+            <em>No name</em>
+        {{/if}}
+    </script>
+
+    <!--====================================================================-->
+
+    <script id="stringListTemplate" type="text/x-handlebars-template">
+        <ol>
+            {{#each fruits}}
+                <li>{{this}}</li>
+            {{/each}}
+        </ol>
+    </script>
+
+    <!--====================================================================-->
+
+    <script id="tableTemplate" type="text/x-handlebars-template">
+        <table>
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>President</th>
+                    <th>VP</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each elections}}
+                    <tr>
+                        <td>{{year}}</td>
+                        <td>{{president}}</td>
+                        <td>{{vp}}</td>
+                    </tr>
+                {{/each}}
+            <tbody>
+        </table>
+    </script>
+
+    <!--====================================================================-->
+
+    <script id="addressTemplate" type="text/x-handlebars-template">
+        <div>
+            {{#if addressTitle}}
+                {{addressTitle}}:
+            {{/if}}
+            <br/>{{name}}
+            <br/>{{streetAddress1}}
+            {{#if streetAddress2}}
+                <br/>{{streetAddress2}}
+            {{/if}}
+            <br/>{{city}}, {{state}} {{zipCode}}
+        </div>
+    </script>
+
+    <!--====================================================================-->
+
+    <script id="addressesTemplate" type="text/x-handlebars-template">
+        {{> address billing addressTitle="Bill to"}}
+        <br />
+        {{> address shipping addressTitle="Ship to"}}
+    </script>
+
+    <!--====================================================================-->
+
+    <script id="phoneTemplate" type="text/x-handlebars-template">
+        {{formatPhone phone}}
+    </script>
+
+    <!--====================================================================-->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+    <script src="HandlebarsTest.js"></script>
+  </body>
+</html>
