@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Rest API Database with Templates</title>
+    <link rel="stylesheet" href="CrudApp.css">
+  </head>
+  <body>
+
+    <h1>Rest API Database with Templates</h1>
+
+    <div id="error-message"></div>
+
+    <div id="main"></div>
+
+
+    <script id="tableTemplate" type="text/x-handlebars-template">
+      <button type="button" id="new-person">Add New Person</button>
+
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>
+              Age
+            </th>
+            <th>
+              <!--Actions-->
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each people}}
+            <tr>
+              <td>{{name}}</td>
+              <td>{{age}}</td>
+              <td>
+                <button type="button" class="edit" data-id="{{_id}}">Edit</button>
+                <button type="button" class="delete" data-id="{{_id}}">Delete</button>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </script>
+
+
+    <script id="formTemplate" type="text/x-handlebars-template">
+      <form>
+        <label for="name">Name</label>
+        <input type="text" id="name" value="{{name}}" />
+        <br />
+        <label for="age">Age</label>
+        <input type="number" id="age" value="{{age}}" />
+        <br />
+        <button type="submit" id="submit">Submit</button>
+        <button type="button" id="cancel">Cancel</button>
+      </form>
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+    <script src="RestApiDataMgr.js"></script>
+    <script src="RestDBAppWithTemplates.js"></script>
+  </body>
+</html>
